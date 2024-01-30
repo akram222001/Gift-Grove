@@ -20,8 +20,12 @@
 // }
 
 const Product = require("../models/productModel");
+const ErrorHander = require("../utils/errorhander");
+const catchAsyncErrors = require("../middleware/catchAsyncError")
 
-exports.createProduct = async (req, res, next) => {
+
+//Creat product --Admin
+exports.createProduct = catchAsyncErrors(async (req, res, next) => {
   try {
     const newProduct = await Product.create(req.body);
 
@@ -36,9 +40,11 @@ exports.createProduct = async (req, res, next) => {
       error: 'Internal Server Error'
     });
   }
-};
+});
 
-exports.getAllProducts = async (req, res) => {
+
+//Get All Products
+exports.getAllProducts = catchAsyncErrors(async (req, res) => {
   try {
     const products = await Product.find();
     res.status(200).json({
@@ -52,7 +58,7 @@ exports.getAllProducts = async (req, res) => {
       error: 'Internal Server Error'
     });
   }
-};
+});
 
 // UPDATE PRODUCT--ADMIN
 
@@ -77,7 +83,7 @@ exports.getAllProducts = async (req, res) => {
 //  }
 
 // Get product -- Admin 
-exports.getProductDetails = async (req, res, next) => {
+exports.getProductDetails = catchAsyncErrors(async (req, res, next) => {
   try {
     const productId = req.params.id;
 
@@ -102,10 +108,10 @@ exports.getProductDetails = async (req, res, next) => {
       error: "Internal Server Error"
     });
   }
-};
+});
 
 // UPDATE PRODUCT--ADMIN
-exports.updateProduct = async (req, res, next) => {
+exports.updateProduct = catchAsyncErrors(async (req, res, next) => {
   try {
     let product = await Product.findById(req.params.id);
 
@@ -133,7 +139,7 @@ exports.updateProduct = async (req, res, next) => {
       error: "Internal Server Error"
     });
   }
-};
+});
 
 // Delete product
 
@@ -154,7 +160,7 @@ exports.updateProduct = async (req, res, next) => {
 // }
 
 // Delete product
-exports.deleteProduct = async (req, res, next) => {
+exports.deleteProduct = catchAsyncErrors(async (req, res, next) => {
   try {
     const productId = req.params.id;
 
@@ -182,4 +188,4 @@ exports.deleteProduct = async (req, res, next) => {
       error: "Internal Server Error"
     });
   }
-};
+});

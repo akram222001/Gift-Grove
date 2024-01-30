@@ -8,9 +8,7 @@ const connectDatabase = () => {
     // ... other options
   }).then((data) => {
     console.log(`Mongodb connected with server: ${data.connections[0].host}`);
-  }).catch((err) => {
-    console.log(err);
-  });
+  })
 };
 
 module.exports = connectDatabase;
