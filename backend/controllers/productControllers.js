@@ -65,7 +65,7 @@ exports.getProductDetails = catchAsyncErrors(async (req, res, next) => {
     res.status(200).json({
       success: true,
       product,
-      productCount,
+      
     });
   } catch (error) {
     console.error(error);
